@@ -3,9 +3,9 @@ When handling nested JSON structures, it's not entirely straightforward since th
 We already know that a `Reads` converter needs a corresponding model.
 ```json
 {
-   name: "Brandon",
-   age: 75,
-   sex: "male"
+   "name": "Brandon",
+   "age": 75,
+   "sex": "male"
 }
 ```
 
@@ -24,26 +24,26 @@ But what if have a JSON structure contains a sequence or list of other `Objects`
 
 ```json
 {
-   name: "Brandon",
-   age: 75,
-   sex: "male",
-   children: [
+   "name": "Brandon",
+   "age": 75,
+   "sex": "male",
+   "children": [
       {
-         name: "Emily",
-         age: 45,
-         sex: "female",
+         "name": "Emily",
+         "age": 45,
+         "sex": "female",
        },
        {
-        name: "Sam",
-        age: 42,
-        sex: "male",
+        "name": "Sam",
+        "age": 42,
+        "sex": "male",
        }
    ]
 }
 ```
 
 ```scala
-case class Human(name: String, age: Int, sex: String, children: Option[List[Human]])
+case class Human(name: String, "age": Int, sex: String, children: Option[List[Human]])
 
 // Builder
 implicit val humanReads: Reads[Human] = (
@@ -64,29 +64,29 @@ To use this, we apply a `lazyRead` or `lazyWrite` to our `Builder` or `Reader` t
 
 ```json
 {
-   name: "Brandon",
-   age: 85,
-   sex: "male",
-   children: [
+   "name": "Brandon",
+   "age": 85,
+   "sex": "male",
+   "children": [
       {
-         name: "Emily",
-         age: 45,
-         sex: "female",
+         "name": "Emily",
+         "age": 45,
+         "sex": "female",
        },
        {
-        name: "Sam",
-        age: 52,
-        sex: "male",
-        children: [
+        "name": "Sam",
+        "age": 52,
+        "sex": "male",
+        "children": [
            {
-              name: "Sona",
-              age: 30,
-              sex: "female",
-              children: [
+              "name": "Sona",
+              "age": 30,
+              "sex": "female",
+              "children": [
                  {
-                    name: "Tom",
-                    age: 1,
-                    sex: "male"
+                    "name": "Tom",
+                    "age": 1,
+                    "sex": "male"
                  }
               ]
             }
@@ -97,7 +97,7 @@ To use this, we apply a `lazyRead` or `lazyWrite` to our `Builder` or `Reader` t
 ```
 
 ```scala
-case class Human(age: Int, sex: String, children: Option[List[Human]])
+case class Human("age": Int, sex: String, "children": Option[List[Human]])
 
 // Builder
 implicit val humanReads: Reads[Human] = (
